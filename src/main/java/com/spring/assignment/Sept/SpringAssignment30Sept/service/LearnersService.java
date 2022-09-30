@@ -6,6 +6,7 @@ import com.spring.assignment.Sept.SpringAssignment30Sept.repository.LearnersRepo
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -68,6 +69,34 @@ public class LearnersService {
         learner.setCourse(course);
 
         return lrepo.save(learner);
+    }
+
+
+
+    //******************* Queries ********************//
+
+    // 1
+    @Transactional
+    public List<Learners> findByEmailAddressAndLastname(String learner_email, String learner_last_name){
+        return lrepo.findByEmailAddressAndLastname(learner_email, learner_last_name);
+    }
+
+    // 2
+    @Transactional
+    public List<Learners> findDistinctLearnerByLastnameOrFirstname(String learner_last_name, String learner_first_name){
+        return lrepo.findDistinctLearnerByLastnameOrFirstname(learner_last_name, learner_first_name);
+    }
+
+    // 3
+    @Transactional
+    public List<Learners> findByLastnameIgnoreCase(String learner_last_name){
+        return lrepo.findByLastnameIgnoreCase(learner_last_name);
+    }
+
+    // 4
+    @Transactional
+    public List<Learners> findByLastnameOrderByFirstnameAsc(String learner_last_name){
+        return lrepo.findByLastnameOrderByFirstnameAsc(learner_last_name);
     }
 
 }

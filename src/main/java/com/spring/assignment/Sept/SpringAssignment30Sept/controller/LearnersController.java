@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/learners")
@@ -69,9 +70,25 @@ public class LearnersController {
 
 
 
+    //***************************** Queries ************************************//
+    @RequestMapping("/findByEmailAddressAndLastname")
+    public List<Learners> findByEmailAddressAndLastname(@RequestBody Map<String,Object> fields){
+        return lservice.findByEmailAddressAndLastname(fields.get("learner_email").toString(),fields.get("learner_last_name").toString());
+    }
 
+    @RequestMapping("/findDistinctLearnerByLastnameOrFirstname")
+    public List<Learners> findDistinctLearnerByLastnameOrFirstname(@RequestBody Map<String,Object> fields){
+        return lservice.findDistinctLearnerByLastnameOrFirstname(fields.get("learner_last_name").toString(),fields.get("learner_first_name").toString());
+    }
 
+    @RequestMapping("/findByLastnameIgnoreCase")
+    public List<Learners> findByLastnameIgnoreCase(@RequestBody Map<String,Object> fields){
+        return lservice.findByLastnameIgnoreCase(fields.get("learner_last_name").toString());
+    }
 
-
+    @RequestMapping("/findByLastnameOrderByFirstnameAsc")
+    public List<Learners> findByLastnameOrderByFirstnameAsc(@RequestBody Map<String,Object> fields){
+        return lservice.findByLastnameOrderByFirstnameAsc(fields.get("learner_last_name").toString());
+    }
 
 }
