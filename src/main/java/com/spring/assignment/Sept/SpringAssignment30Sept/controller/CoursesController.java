@@ -15,8 +15,8 @@ public class CoursesController {
     CoursesService cservice;
 
 
-    // 1.save
-    @PostMapping("/addCourse")
+    // 1.save ("/addCourse")
+    @PostMapping
     public Courses addCourse(@RequestBody Courses course){
         return cservice.addCourse(course);
     }

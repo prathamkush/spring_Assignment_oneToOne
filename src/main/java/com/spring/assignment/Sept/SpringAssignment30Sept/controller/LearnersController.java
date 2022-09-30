@@ -22,8 +22,8 @@ public class LearnersController {
     CoursesService cservice;
 
 
-    // 1.save
-    @PostMapping("/addLearner")
+    // 1.save ("/addLearner")
+    @PostMapping
     public Learners addLearner(@RequestBody Learners learner){
         return lservice.addLearner(learner);
     }

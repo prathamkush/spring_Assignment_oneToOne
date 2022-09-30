@@ -18,7 +18,8 @@ public interface LearnersRepository extends JpaRepository<Learners, Integer> {
 
     // 1.findByEmailAddressAndLastname
     @Modifying
-    @Query("FROM Learners l " +
+    @Query("SELECT l " +
+            "FROM Learners l " +
             "WHERE l.learner_email = :learner_email AND l.learner_last_name = :learner_last_name")
     List<Learners> findByEmailAddressAndLastname(@Param("learner_email") String learner_email,
                                                  @Param("learner_last_name") String learner_last_name);
@@ -28,18 +29,20 @@ public interface LearnersRepository extends JpaRepository<Learners, Integer> {
 
     // 2.findDistinctLearnerByLastnameOrFirstname
     @Modifying
-    @Query("FROM Learners l " +
+    @Query("SELECT DISTINCT l " +
+            "FROM Learners l " +
             "WHERE l.learner_last_name = :learner_last_name OR " +
                     " l.learner_first_name = :learner_first_name")
     List<Learners> findDistinctLearnerByLastnameOrFirstname(@Param("learner_last_name") String learner_last_name,
-                                                  @Param("learner_first_name") String learner_first_name);
+                                                            @Param("learner_first_name") String learner_first_name);
 
 
 
 
     // 3.findByLastnameIgnoreCase
     @Modifying
-    @Query("FROM Learners l " +
+    @Query("SELECT l " +
+            "FROM Learners l " +
             "WHERE UPPER(l.learner_last_name) = UPPER(:learner_last_name)")
     List<Learners> findByLastnameIgnoreCase(@Param("learner_last_name") String learner_last_name);
 
@@ -48,14 +51,9 @@ public interface LearnersRepository extends JpaRepository<Learners, Integer> {
 
     // 4.findByLastnameOrderByFirstnameAsc
     @Modifying
-    @Query("FROM Learners l " +
+    @Query("SELECT l " +
+            "FROM Learners l " +
             "WHERE l.learner_last_name = :learner_last_name " +
             "ORDER BY l.learner_first_name ASC")
     List<Learners> findByLastnameOrderByFirstnameAsc(@Param("learner_last_name") String learner_last_name);
 }
-
-/*@Query("SELECT l.learner_id, l.learner_first_name, l.learner_last_name, " +
-            "l.learner_email, l.learner_password, l.course " +
-            "FROM Learners l " +
-            "WHERE l.learner_last_name = :learner_last_name " +
-            "ORDER BY l.learner_first_name ASC")*/
